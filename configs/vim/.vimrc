@@ -9,6 +9,9 @@ else
     set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 endif
 
+" Show number of matches when searching
+set shortmess-=S
+
 " Always show current position
 set ruler
 

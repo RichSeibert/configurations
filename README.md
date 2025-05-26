@@ -1,5 +1,5 @@
-# linux-profiles
-Profile and configuration files for linux and other things.
+# configurations
+Configuration files for linux and other things.
 
 ## Auto setup
 Running ./setup.sh will copy all the config files in "configs" to your home directory keeping the file paths from configs/\*/. 
