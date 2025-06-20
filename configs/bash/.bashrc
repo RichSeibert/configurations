@@ -19,7 +19,7 @@ export EDITOR=vim
 # vim style
 # To see bindings, run "bind -P"
 set -o vi
-bind 'set bell-style none'
+set bell-style none
 set show-mode-in-prompt on
 set vi-cmd-mode-string "\1\e[2 q\2"
 set vi-ins-mode-string "\1\e[6 q\2"
@@ -29,9 +29,6 @@ set editing-mode vi
 alias l="ls -lh"
 alias ll="ls -lh"
 alias la="ls -lha"
-
-# Disable the bell
-if [[ $iatest > 0 ]]; then bind "set bell-style visible"; fi
 
 # Expand the history size
 export HISTFILESIZE=10000
