@@ -129,3 +129,5 @@ set tm=500
 " Show line numbers and make the number col width
 set number
 set numberwidth=2
+
+autocmd FileType markdown,text,html setlocal spell
