@@ -1,16 +1,25 @@
 # .bashrc
 
-iatest=$(expr index "$-" i)
+case $- in
+    *i*) ;;
+    *) return ;;
+esac
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
-export PATH="$HOME/.local/bin:$PATH"
-export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}
-# temporary, cuda doesn't support higher g++ versions yet
-export NVCC_PREPEND_FLAGS="-ccbin /usr/bin/g++-13"
+case ":$PATH:" in
+    *":$HOME/.local/bin:"*) ;;
+    *) export PATH="$HOME/.local/bin:$PATH" ;;
+esac
+if [ -d /usr/local/cuda/bin ]; then
+    export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}
+    if [ -x /usr/bin/g++-13 ]; then
+        export NVCC_PREPEND_FLAGS="-ccbin /usr/bin/g++-13"
+    fi
+fi
 
 # change default editors (usefull for editing cronjobs with "crontab -e")
 export VISUAL=vim
@@ -19,11 +28,11 @@ export EDITOR=vim
 # vim style
 # To see bindings, run "bind -P"
 set -o vi
-set bell-style none
-set show-mode-in-prompt on
-set vi-cmd-mode-string "\1\e[2 q\2"
-set vi-ins-mode-string "\1\e[6 q\2"
-set editing-mode vi
+bind 'set bell-style none'
+bind 'set show-mode-in-prompt on'
+bind 'set vi-cmd-mode-string \1\e[2 q\2'
+bind 'set vi-ins-mode-string \1\e[6 q\2'
+bind 'set editing-mode vi'
 
 # aliases
 alias ls="ls --color=auto"
@@ -47,10 +56,10 @@ PROMPT_COMMAND='history -a'
 
 # Ignore case on auto-completion
 # Note: bind used instead of sticking these in .inputrc
-if [[ $iatest > 0 ]]; then bind "set completion-ignore-case on"; fi
+bind 'set completion-ignore-case on'
 
 # Show auto-completion list automatically, without double tab
-if [[ $iatest > 0 ]]; then bind "set show-all-if-ambiguous On"; fi
+bind 'set show-all-if-ambiguous on'
 
 # Only show the first 3 dirs in the current path
 PS1='\[\e[32m\]$(echo "${PWD/#$HOME/~}" | awk -F/ '\''{if (NF>3) print $(NF-2)"/"$(NF-1)"/"$NF; else print $0}'\'')\[\e[0m\]$ '
